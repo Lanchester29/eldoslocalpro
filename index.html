@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local Pro Connect — Trusted Trades in Eldorado Park</title>
+  <meta name="description" content="Verified plumbers, electricians, property practitioners in Eldorado Park. Paid listings: R450 once-off.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #071026;
+      --card: #0f1a2a;
+      --muted: #9aa7bf;
+      --accent1: #7c3aed;
+      --accent2: #00e6a8;
+      --text: #e6eef8;
+      --neon: 0 8px 30px rgba(124,58,237,0.18);
+      --glass: rgba(255,255,255,0.03);
+      --glass-strong: rgba(255,255,255,0.04);
+      --radius: 18px;
+      --maxw: 1200px;
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --muted: #64748b;
+      --text: #1e293b;
+      --glass: rgba(0,0,0,0.03);
+      --glass-strong: rgba(0,0,0,0.05);
+      --accent1: #8b5cf6;
+      --accent2: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-top: 90px;
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    /* Animated Background */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: -1;
+      animation: float 12s infinite ease-in-out;
+    }
+    [data-theme="dark"] body::before { background: radial-gradient(circle, rgba(124,58,237,0.6), transparent 70%); }
+    [data-theme="light"] body::before { background: radial-gradient(circle, rgba(139,92,246,0.4), transparent 70%); }
+    body::before { top: -80px; left: -80px; animation-delay: 0s; }
+    body::after { bottom: -100px; right: -100px; animation-delay: 4s; }
+    [data-theme="dark"] body::after { background: radial-gradient(circle, rgba(0,230,168,0.6), transparent 70%); }
+    [data-theme="light"] body::after { background: radial-gradient(circle, rgba(16,185,129,0.4), transparent 70%); }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(0.8); }
+      50% { transform: translate(60px, -60px) scale(1.3); }
+    }
+
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* NAVIGATION */
+    .nav {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, calc(100% - 32px));
+      z-index: 1000;
+      pointer-events: none;
+    }
+    .nav-bar {
+      background: linear-gradient(90deg, var(--glass), var(--glass-strong));
+      backdrop-filter: blur(12px);
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+      border: 1px solid var(--glass);
+      pointer-events: auto;
+      transition: all 0.3s;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .brand i { color: var(--accent1); font-size: 32px; }
+    .brand h1 {
+      margin: 0;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      margin-left: auto;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .nav-links a, .nav-links button {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.93rem;
+      transition: all 0.25s;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .nav-links a:hover, .theme-toggle:hover {
+      background: rgba(124,58,237,0.12);
+      color: var(--text);
+      box-shadow: var(--neon);
+    }
+    .theme-toggle i { font-size: 1.2rem; color: var(--muted); }
+    .theme-toggle:hover i { color: var(--accent2); }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 50px 0 40px;
+      text-align: center;
+      position: relative;
+    }
+    .hero h2 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent1), #ff6b83, var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 16px 0;
+      animation: titleFloat 6s ease-in-out infinite;
+    }
+    .hero h2 span {
+      font-size: 0.9em;
+      display: block;
+      margin-top: 8px;
+      background: linear-gradient(90deg, #ff6b83, var(--accent2));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    @keyframes titleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto 24px;
+      font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.3s;
+      box-shadow: var(--neon);
+    }
+    .btn-primary {
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      color: white;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--glass);
+      color: var(--muted);
+    }
+    .btn:hover { transform: translateY(-3px); }
+
+    /* ELITE PRO LISTING */
+    #get-listed {
+      padding: 80px 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(0,230,168,0.04));
+    }
+    .elite-card {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(124,58,237,0.2);
+      border-radius: 28px;
+      padding: 44px 36px;
+      text-align: center;
+      box-shadow: 
+        0 20px 60px rgba(0,0,0,0.3), 
+        0 0 30px rgba(124,58,237,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      position: relative;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .premium-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: linear-gradient(135deg, #ffcc01, #f210d0);
+      color: white;
+      font-weight: 800;
+      font-size: 0.7rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(124,58,237,0.4);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .elite-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0 0 12px;
+    }
+    .elite-subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .price-box {
+      margin: 24px 0;
+    }
+    .price {
+      font-size: 3.4rem;
+      font-weight: 800;
+      color: var(--accent2);
+    }
+    .price small {
+      font-size: 1.1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .price-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+      margin: 32px 0;
+      text-align: left;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+    .benefit-item i {
+      color: var(--accent2);
+      font-size: 1.3rem;
+      margin-top: 2px;
+    }
+    .benefit-item strong {
+      color: var(--accent1);
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 28px 0 20px;
+    }
+    .btn-whatsapp {
+      background: #25d366;
+      color: white;
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+      transition: all 0.3s;
+    }
+    .btn-whatsapp:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.5);
+    }
+    .btn-email {
+      background: transparent;
+      color: var(--muted);
+      padding: 16px 32px;
+      border-radius: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--glass);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    .btn-email:hover {
+      background: rgba(124,58,237,0.1);
+      color: var(--text);
+      border-color: var(--accent1);
+    }
+
+    /* TESTIMONIAL SLIDER */
+    .testimonial-slider {
+      max-width: 700px;
+      margin: 32px auto 0;
+      padding: 20px;
+      background: var(--glass);
+      border-radius: 18px;
+      border: 1px solid var(--glass-strong);
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-slide {
+      display: none;
+      animation: fade 1s ease-in-out;
+      opacity: 0;
+    }
+    .testimonial-slide.active {
+      display: block;
+      opacity: 1;
+    }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .testimonial-slide p {
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .testimonial-slide .client {
+      font-weight: 600;
+      color: var(--accent2);
+      font-size: 0.9rem;
+    }
+    .testimonial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active {
+      background: var(--accent2);
+      transform: scale(1.3);
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin: 32px 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .search-box {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--glass);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+      width: 100%;
+      max-width: 420px;
+      padding-right: 40px;
+    }
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+    .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent2);
+      pointer-events: none;
+    }
+
+    .pro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .pro-card {
+      background: linear-gradient(180deg, var(--glass), var(--glass-strong));
+      border-radius: var(--radius);
+      padding: 40px 20px 20px;
+      border: 1px solid var(--glass);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: visible;
+    }
+    .pro-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(124,58,237,0.4);
+    }
+
+    .pro-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      object-position: center 25%;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: all 0.4s ease;
+      z-index: 2;
+    }
+    .pro-card:hover .pro-img {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(124,58,237,0.6), 0 0 60px rgba(0,230,168,0.4);
+      filter: brightness(1.1);
+    }
+
+    .pro-card h3 { margin: 0 0 6px; color: var(--accent2); font-size: 1.1rem; }
+    .pro-card .name { font-weight: 600; color: var(--text); margin-bottom: 6px; font-size: 1.15rem; }
+    .pro-card .location { font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
+    .pro-card .rating { display: flex; justify-content: center; gap: 4px; margin-bottom: 12px; font-size: 0.9rem; }
+    .pro-card .rating i { color: #fbbf24; font-size: 0.95rem; }
+
+    .about-toggle {
+      background: rgba(124,58,237,0.12);
+      border: none;
+      color: var(--accent1);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      align-self: center;
+    }
+    .about-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.5s ease;
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding: 0 8px;
+      text-align: left;
+    }
+    .about-content.open { 
+      max-height: 200px;
+      padding: 14px 8px; 
+    }
+
+    .pro-card .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .pro-card .contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent1);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid var(--glass);
+      transition: all 0.3s;
+      word-break: break-all;
+      justify-content: flex-start;
+      width: 100%;
+    }
+    .pro-card .contact a:hover {
+      background: rgba(124,58,237,0.2);
+      transform: translateY(-1px);
+      color: var(--text);
+    }
+
+    .review-btn {
+      background: rgba(255,215,0,0.15);
+      border: 1px solid #fbbf24;
+      color: #fbbf24;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .review-btn:hover {
+      background: #fbbf24;
+      color: #000;
+    }
+
+    /* REVIEW POPUP */
+    .review-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 90%;
+      max-width: 460px;
+      background: var(--card);
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      border: 1px solid var(--glass);
+    }
+    .review-popup.open {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+    .review-popup .close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+    }
+    .review-content {
+      overflow: hidden;
+      position: relative;
+      height: 180px;
+    }
+    .review-slide {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 500%;
+    }
+    .review-slide > div {
+      width: 20%;
+      padding: 0 8px;
+      text-align: center;
+    }
+    .review-popup h4 {
+      margin: 0 0 12px;
+      color: var(--accent2);
+      font-size: 1.3rem;
+      text-align: center;
+    }
+    .review-popup .stars { color: #fbbf24; margin-bottom: 12px; }
+    .review-popup p { font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+    .review-popup .client { font-size: 0.85rem; color: var(--muted); margin-top: 16px; font-style: italic; }
+
+    .review-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding: 0 10px;
+    }
+    .review-nav button {
+      background: rgba(124,58,237,0.15);
+      border: none;
+      color: var(--accent1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .review-nav button:hover {
+      background: var(--accent1);
+      color: white;
+    }
+    .review-counter {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: center;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    .overlay.open { opacity: 1; visibility: visible; }
+
+    section { padding: 60px 0; }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links { 
+        position: absolute; 
+        top: 100%; 
+        left: 8px; 
+        right: 8px; 
+        background: var(--card); 
+        border-radius: 16px; 
+        padding: 12px; 
+        flex-direction: column; 
+        display: none; 
+        border: 1px solid var(--glass); 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+      }
+      .nav-links.open { display: flex; }
+      .pro-card .contact a {
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+      body { padding-top: 100px; }
+      .hero { padding-top: 30px; }
+      .elite-card { padding: 32px 24px; }
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .pro-grid { grid-template-columns: 1fr; }
+      .cta-buttons, .cta-group { flex-direction: column; align-items: center; }
+      .btn, .btn-whatsapp, .btn-email { width: 100%; max-width: 300px; justify-content: center; }
+      .hero h2 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <div class="nav-bar">
+      <div class="brand">
+        <i class="fas fa-toolbox"></i>
+        <h1>Local Pro Connect</h1>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="hamburger" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#pros">Find a Pro</a>
+        <a href="#get-listed">Get Listed</a>
+        <a href="/admin/" target="_blank">Admin CMS</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="container">
+      <h2>Need a Pro in Eldorado Park?<br><span>You’re 1 Click Away</span></h2>
+      <p>Verified tradespeople. Real photos. Direct contact. <strong>Paid listings only — R450 once-off.</strong></p>
+      <div class="cta-buttons">
+        <a href="#pros" class="btn btn-primary">Find Your Pro Now</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ELITE PRO LISTING -->
+    <section id="get-listed">
+      <div class="elite-card">
+        <div class="premium-badge">PREMIUM</div>
+
+        <h3 class="elite-title">Join the Elite Directory</h3>
+        <p class="elite-subtitle">
+          Secure <strong>lifetime visibility</strong> in Eldorado Park’s most trusted professional network. 
+          Verified pros get <strong>4.2× more inquiries</strong> — one payment, forever listed.
+        </p>
+
+        <div class="price-box">
+          <div class="price">R280 <small>per annum</small></div>
+          <div class="price-desc">Whole year listing • Verified badge • Priority placement</div>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <i class="fas fa-crown"></i>
+            <div><strong>Top Search Rank</strong> – Always appear first in your trade</div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-shield-alt"></i>
+            <div><strong>Elite Verification</strong> – Build instant trust with verified badge</div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-bolt"></i>
+            <div><strong>Direct Client Leads</strong> – WhatsApp & call — no middlemen</div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-sync"></i>
+            <div><strong>Detail Updates</strong> – Refresh photos or details anytime (R150)</div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-chart-line"></i>
+            <div><strong>Steady Growth</strong> – Tap into ongoing local demand</div>
+          </div>
+          <div class="benefit-item">
+            <i class="fas fa-users"></i>
+            <div><strong>Community Impact</strong> – Strengthen Eldorado Park’s local economy</div>
+          </div>
+        </div>
+
+        <div class="cta-group">
+          <a href="https://wa.me/27683575581?text=Hi%20Lorenzo%2C%0A%0AI%27m%20interested%20in%20joining%20Local%20Pro%20Connect.%20Please%20send%20me%20payment%20details%20for%20the%20R450%20once-off%20lifetime%20listing." 
+             target="_blank" class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i> Secure My Spot
+          </a>
+          <a href="mailto:Lorenzoroberts29@gmail.com?subject=Join%20Local%20Pro%20Connect&body=Hi%20Lorenzo%2C%0A%0AI%27m%20interested%20in%20joining%20Local%20Pro%20Connect.%20Please%20send%20me%20payment%20details%20for%20the%20R450%20once-off%20lifetime%20listing." 
+             class="btn-email">
+            <i class="fas fa-envelope"></i> Email Me
+          </a>
+        </div>
+
+        <!-- TESTIMONIAL SLIDER (REAL PROS) -->
+        <div class="testimonial-slider">
+          <div class="testimonial-slide active">
+            <p>"Sold my house in 2 weeks! Best agent in Eldorado Park."</p>
+            <div class="client">— Thandi M., Client of Noel Julius</div>
+          </div>
+          <div class="testimonial-slide">
+            <p>"Wedding photos were stunning! Captured every moment perfectly."</p>
+            <div class="client">— Keisha & Mark, Clients of Lorenzo Roberts</div>
+          </div>
+          <div class="testimonial-slide">
+            <p>"Custom mugs were a hit! Fast delivery and great quality."</p>
+            <div class="client">— Sarah L., Client of Roberts Creations</div>
+          </div>
+          <div class="testimonial-dots">
+            <span class="dot active" onclick="currentTestimonial(0)"></span>
+            <span class="dot" onclick="currentTestimonial(1)"></span>
+            <span class="dot" onclick="currentTestimonial(2)"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIND A PRO -->
+    <section id="pros">
+      <h3 class="section-title">Meet Your Eldorado Park Pros</h3>
+      <p class="section-sub">Real people. Real skills. Real photos. Search by trade or name.</p>
+
+      <div class="filters">
+        <div class="search-container">
+          <input type="text" id="searchInput" class="search-box" placeholder="Search name, trade...">
+          <i class="fas fa-search search-icon"></i>
+        </div>
+      </div>
+
+      <div class="pro-grid" id="proGrid">
+
+        <!-- Noel Julius -->
+        <div class="pro-card" data-service="property practitioner">
+          <img src="images/Noel.jpg" alt="Noel Julius" class="pro-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+          <h3>Property Practitioner</h3>
+          <div class="name">Noel Julius</div>
+          <div class="location">Eldorado Park</div>
+          <div class="rating"></div>
+          <button class="about-toggle" onclick="this.nextElementSibling.classList.toggle('open')">About Me</button>
+          <div class="about-content">Dedicated to Eldorado Park and its community, I provide professional support in property sales, rentals, and investments — combining local knowledge with a personal approach to ensure every client feels confident and valued.</div>
+          <div class="contact">
+            <a href="tel:+27769711241"><i class="fas fa-phone"></i> Call +27 76 971 1241</a>
+            <a href="https://wa.me/27769711241?text=Hi%20Noel%20Julius%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience." target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:info@pusakapropertyassist.co.za?subject=Inquiry%20from%20Local%20Pro%20Connect&body=Hi%20Noel%20Julius%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience."><i class="fas fa-envelope"></i> Email</a>
+          </div>
+          <button class="review-btn" onclick="openReview(0)">View 5 Reviews</button>
+        </div>
+
+        <!-- Lorenzo Roberts -->
+        <div class="pro-card" data-service="photographer">
+          <img src="images/photographer.jpg" alt="Lorenzo Roberts" class="pro-img" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+          <h3>Photographer</h3>
+          <div class="name">Lorenzo Roberts</div>
+          <div class="location">Eldorado Park</div>
+          <div class="rating"></div>
+          <button class="about-toggle" onclick="this.nextElementSibling.classList.toggle('open')">About Me</button>
+          <div class="about-content">Specializing in capturing life’s most memorable moments, I offer professional photography services for events, portraits, and product shoots. With expert editing and attention to detail, I ensure every image tells a story and leaves a lasting impression.</div>
+          <div class="contact">
+            <a href="tel:+27683575581"><i class="fas fa-phone"></i> Call +27 68 357 5581</a>
+            <a href="https://wa.me/27683575581?text=Hi%20Lorenzo%20Roberts%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience." target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:Lorenzoroberts29@gmail.com?subject=Inquiry%20from%20Local%20Pro%20Connect&body=Hi%20Lorenzo%20Roberts%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience."><i class="fas fa-envelope"></i> Email</a>
+          </div>
+          <button class="review-btn" onclick="openReview(1)">View 5 Reviews</button>
+        </div>
+
+        <!-- Roberts Creations -->
+        <div class="pro-card" data-service="personalized gifts">
+          <img src="images/Lorenzo.jpg" alt="Roberts Creations" class="pro-img" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';">
+          <h3>Personalized Gifts</h3>
+          <div class="name">Roberts Creations</div>
+          <div class="location">Eldorado Park</div>
+          <div class="rating"></div>
+          <button class="about-toggle" onclick="this.nextElementSibling.classList.toggle('open')">About Me</button>
+          <div class="about-content">From personalized mugs, t-shirts, and frames to a wide variety of custom gifts, we provide professional services for both corporate and personal occasions. Our mission is to bring your ideas to life with creativity, quality, and attention to every detail.</div>
+          <div class="contact">
+            <a href="tel:+27683575581"><i class="fas fa-phone"></i> Call +27 68 357 5581</a>
+            <a href="https://wa.me/27683575581?text=Hi%20Roberts%20Creations%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience." target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="mailto:Lorenzoroberts29@gmail.com?subject=Inquiry%20from%20Local%20Pro%20Connect&body=Hi%20Roberts%20Creations%2C%0A%0AI%20found%20your%20contact%20on%20Local%20Pro%20Connect.%20I%27m%20interested%20in%20your%20services%20—%20please%20get%20back%20to%20me%20at%20your%20earliest%20convenience."><i class="fas fa-envelope"></i> Email</a>
+          </div>
+          <button class="review-btn" onclick="openReview(2)">View 5 Reviews</button>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- REVIEW POPUP -->
+  <div class="overlay" id="overlay" onclick="closeReview()"></div>
+  <div class="review-popup" id="reviewPopup">
+    <button class="close" onclick="closeReview()">×</button>
+    <h4 id="reviewTitle">Reviews</h4>
+    <div class="review-content">
+      <div class="review-slide" id="reviewSlide"></div>
+    </div>
+    <div class="review-nav">
+      <button onclick="prevReview()"><i class="fas fa-chevron-left"></i></button>
+      <div class="review-counter" id="reviewCounter">1 / 5</div>
+      <button onclick="nextReview()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year">2025</span> Local Pro Connect | Paid Listings Only | 
+        <a href="mailto:Lorenzoroberts29@gmail.com?subject=Join%20Local%20Pro%20Connect&body=Hi%20Lorenzo%2C%0A%0AI%27m%20interested%20in%20joining%20Local%20Pro%20Connect.%20Please%20send%20me%20payment%20details%20for%20the%20R450%20once-off%20lifetime%20listing.">Email</a> | 
+        <a href="https://wa.me/27683575581?text=Hi%20Lorenzo%2C%0A%0AI%27m%20interested%20in%20joining%20Local%20Pro%20Connect.%20Please%20send%20me%20payment%20details%20for%20the%20R450%20once-off%20lifetime%20listing." target="_blank">WhatsApp</a>
+      </p>
+      <p><br>Website Designed & Created by Roberts Creations, Eldorado Park</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme & Menu
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle i').className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle i').className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', () => {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      document.querySelectorAll('.pro-card').forEach(card => {
+        const service = card.dataset.service.toLowerCase();
+        const name = card.querySelector('.name').textContent.toLowerCase();
+        card.style.display = service.includes(query) || name.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Ratings
+    document.querySelectorAll('.pro-card').forEach(card => {
+      const rating = 4.8;
+      const starsDiv = card.querySelector('.rating');
+      starsDiv.innerHTML = '';
+      for (let i = 1; i <= 5; i++) {
+        const star = document.createElement('i');
+        star.className = i <= rating ? 'fas fa-star' : 'far fa-star';
+        starsDiv.appendChild(star);
+      }
+      starsDiv.innerHTML += ` ${rating}`;
+    });
+
+    // Reviews Data
+    const reviews = [
+      // Noel Julius
+      { text: "Sold my house in 2 weeks! Best agent.", client: "— Thandi M.", stars: 5 },
+      { text: "Professional, honest, knows the market.", client: "— John D.", stars: 5 },
+      { text: "Found our dream home. Highly recommend!", client: "— Sarah K.", stars: 5 },
+      { text: "Exceptional service from start to finish.", client: "— David R.", stars: 5 },
+      { text: "Expert advice on investments.", client: "— Maria S.", stars: 4 },
+      // Lorenzo Roberts
+      { text: "Wedding photos were stunning!", client: "— Keisha & Mark", stars: 5 },
+      { text: "Professional editing. On time.", client: "— Lisa P.", stars: 5 },
+      { text: "Family portrait was perfect.", client: "— Mike T.", stars: 4 },
+      { text: "Captured our event beautifully.", client: "— Emma W.", stars: 5 },
+      { text: "Product shots elevated our brand.", client: "— TechCo Team", stars: 5 },
+      // Roberts Creations
+      { text: "Custom mugs were a hit!", client: "— Sarah L.", stars: 5 },
+      { text: "Fast delivery, great quality.", client: "— James R.", stars: 4 },
+      { text: "Perfect birthday gift.", client: "— Zoe N.", stars: 5 },
+      { text: "Corporate t-shirts turned out amazing.", client: "— Office Mgr.", stars: 5 },
+      { text: "Personalized frames made our anniversary special.", client: "— Alex & Jordan", stars: 5 }
+    ];
+
+    let currentPro = 0;
+    let currentReview = 0;
+    let autoSlideInterval;
+
+    function openReview(proIndex) {
+      currentPro = proIndex;
+      currentReview = 0;
+      renderReview();
+      document.getElementById('reviewPopup').classList.add('open');
+      document.getElementById('overlay').classList.add('open');
+      startAutoSlide();
+    }
+
+    function renderReview() {
+      const slide = document.getElementById('reviewSlide');
+      slide.innerHTML = '';
+      const start = currentPro * 5;
+      const names = ['Noel Julius', 'Lorenzo Roberts', 'Roberts Creations'];
+      document.getElementById('reviewTitle').textContent = `${names[currentPro]} – Reviews`;
+
+      for (let i = 0; i < 5; i++) {
+        const r = reviews[start + i];
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+          <p>${r.text}</p>
+          <div class="client">${r.client}</div>
+        `;
+        slide.appendChild(div);
+      }
+
+      slide.style.transform = `translateX(-${currentReview * 20}%)`;
+      document.getElementById('reviewCounter').textContent = `${currentReview + 1} / 5`;
+    }
+
+    function nextReview() {
+      currentReview = (currentReview + 1) % 5;
+      document.getElementById('reviewSlide').style.transform = `translateX(-${currentReview * 20}%)`;
+      document.getElementById('reviewCounter').textContent = `${currentReview + 1} / 5`;
+    }
+
+    function prevReview() {
+      currentReview = (currentReview + 4) % 5;
+      document.getElementById('reviewSlide').style.transform = `translateX(-${currentReview * 20}%)`;
+      document.getElementById('reviewCounter').textContent = `${currentReview + 1} / 5`;
+    }
+
+    function startAutoSlide() {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(nextReview, 3000);
+    }
+
+    function closeReview() {
+      document.getElementById('reviewPopup').classList.remove('open');
+      document.getElementById('overlay').classList.remove('open');
+      clearInterval(autoSlideInterval);
+    }
+
+    // Testimonial Slider
+    let currentTestimonialIndex = 0;
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showTestimonial(index) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    function currentTestimonial(n) {
+      showTestimonial(currentTestimonialIndex = n);
+    }
+
+    setInterval(() => {
+      currentTestimonialIndex = (currentTestimonialIndex + 1) % slides.length;
+      showTestimonial(currentTestimonialIndex);
+    }, 4000);
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+Add final site
