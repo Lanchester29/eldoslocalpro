@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin CMS — Local Pro Connect</title>
+  <meta name="description" content="Manage pros and leads for Eldorado Park directory.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #071026;
+      --card: #0f1a2a;
+      --muted: #9aa7bf;
+      --accent1: #7c3aed;
+      --accent2: #00e6a8;
+      --text: #e6eef8;
+      --glass: rgba(255,255,255,0.03);
+      --radius: 18px;
+      --maxw: 1200px;
+      font-family: 'Poppins', sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --muted: #64748b;
+      --text: #1e293b;
+      --glass: rgba(0,0,0,0.03);
+      --accent1: #8b5cf6;
+      --accent2: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; }
+    .container { max-width: var(--maxw); margin: 0 auto; }
+    header { text-align: center; padding: 2rem 0; background: var(--glass); border-radius: var(--radius); margin-bottom: 2rem; }
+    .nav { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; }
+    .nav a { color: var(--accent1); text-decoration: none; padding: 0.5rem 1rem; border: 1px solid var(--glass); border-radius: 8px; transition: all 0.3s; }
+    .nav a:hover { background: var(--accent1); color: white; }
+    .theme-toggle { background: none; border: 1px solid var(--glass); color: var(--muted); padding: 0.5rem; border-radius: 8px; cursor: pointer; }
+    .section { background: var(--card); border: 1px solid var(--glass); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .pros-list { display: grid; gap: 1rem; }
+    .pro-item { display: flex; gap: 1rem; align-items: center; padding: 1rem; background: var(--glass); border-radius: 8px; }
+    .pro-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 50%; }
+    .pro-item button { background: var(--accent2); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+    .pro-item button:hover { background: #00b894; }
+    .add-form { display: grid; gap: 1rem; max-width: 400px; }
+    .add-form input, .add-form select, .add-form textarea { padding: 0.75rem; border: 1px solid var(--glass); background: var(--glass); color: var(--text); border-radius: 6px; }
+    .add-form button { background: var(--accent1); color: white; border: none; padding: 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    .leads-list { list-style: none; }
+    .lead-item { background: var(--glass); padding: 1rem; border-radius: 6px; margin-bottom: 0.5rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--glass); padding: 1rem; border-radius: 8px; text-align: center; }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--accent2); }
+    @media (max-width: 768px) { .pro-item { flex-direction: column; text-align: center; } }
+  </style>
+</head>
+<body data-theme="dark">
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-cogs"></i> Admin CMS — Local Pro Connect</h1>
+      <p>Manage Eldorado Park pros and leads</p>
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+    </header>
+
+    <nav class="nav">
+      <a href="/">Main Site</a>
+      <a href="#pros">Manage Pros</a>
+      <a href="#leads">View Leads</a>
+      <a href="#stats">Stats</a>
+    </nav>
+
+    <section id="stats" class="section">
+      <h2>Quick Stats</h2>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div>Active Pros</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">0</div>
+          <div>New Leads</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">R0</div>
+          <div>Revenue</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pros" class="section">
+      <h2>Manage Pros</h2>
+      <div class="add-form">
+        <input type="text" id="newName" placeholder="Pro Name">
+        <input type="text" id="newTrade" placeholder="Trade (e.g. Plumber)">
+        <input type="url" id="newImage" placeholder="Image URL">
+        <textarea id="newBio" placeholder="Bio (optional)"></textarea>
+        <button onclick="addPro()">Add New Pro</button>
+      </div>
+      <div class="pros-list" id="prosList">
+        <!-- Dynamic list here -->
+      </div>
+    </section>
+
+    <section id="leads" class="section">
+      <h2>Leads</h2>
+      <ul class="leads-list" id="leadsList">
+        <li class="lead-item">No leads yet — add the form to collect them!</li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      const newTheme = isDark ? 'light' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      document.querySelector('.theme-toggle i').className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.body.setAttribute('data-theme', savedTheme);
+    document.querySelector('.theme-toggle i').className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    // Sample Pros (your current ones)
+    let pros = [
+      { name: 'Noel Julius', trade: 'Property Practitioner', image: 'Noel.jpg', bio: 'Dedicated to Eldorado Park...' },
+      { name: 'Lorenzo Roberts', trade: 'Photographer', image: 'photographer.jpg', bio: 'Specializing in capturing...' },
+      { name: 'Roberts Creations', trade: 'Personalized Gifts', image: 'Lorenzo.jpg', bio: 'From personalized mugs...' }
+    ];
+
+    // Render Pros
+    function renderPros() {
+      const list = document.getElementById('prosList');
+      list.innerHTML = pros.map((pro, index) => `
+        <div class="pro-item">
+          <img src="${pro.image}" alt="${pro.name}" onerror="this.src='https://via.placeholder.com/60?text=${pro.name}'">
+          <div>
+            <h3>${pro.name} — ${pro.trade}</h3>
+            <p>${pro.bio.substring(0, 100)}...</p>
+          </div>
+          <button onclick="editPro(${index})">Edit</button>
+          <button onclick="deletePro(${index})">Delete</button>
+        </div>
+      `).join('');
+    }
+
+    // Add Pro
+    function addPro() {
+      const name = document.getElementById('newName').value;
+      const trade = document.getElementById('newTrade').value;
+      const image = document.getElementById('newImage').value || 'https://via.placeholder.com/300?text=New+Pro';
+      const bio = document.getElementById('newBio').value;
+      if (name && trade) {
+        pros.push({ name, trade, image, bio });
+        renderPros();
+        // Clear form
+        document.getElementById('newName').value = '';
+        document.getElementById('newTrade').value = '';
+        document.getElementById('newImage').value = '';
+        document.getElementById('newBio').value = '';
+        alert('Pro added! Push to GitHub to update main site.');
+      }
+    }
+
+    // Edit Pro (placeholder)
+    function editPro(index) {
+      alert(`Edit ${pros[index].name} — add form later.`);
+    }
+
+    // Delete Pro
+    function deletePro(index) {
+      if (confirm(`Delete ${pros[index].name}?`)) {
+        pros.splice(index, 1);
+        renderPros();
+        alert('Pro deleted! Push to GitHub to update main site.');
+      }
+    }
+
+    // Initial Render
+    renderPros();
+  </script>
+</body>
+</html>
